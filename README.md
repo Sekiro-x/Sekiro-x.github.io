@@ -1,81 +1,33 @@
-# Sekiro's Personal Blog
+# Sekiro's Art Gallery
 
 **主页链接**: [https://sekiro-x.github.io](https://sekiro-x.github.io)
 
-## 📝 简介
+## 🎨 简介
 
-这是我的个人博客网站，使用 GitHub Pages 和 Jekyll 构建。
+这是一个以印象派艺术为主题的个人主页，展示梵高与莫奈的艺术风格对比。
 
-## ✨ 功能特性
+## ✨ 特色
 
-- 🎨 简洁美观的界面设计
-- 📱 响应式布局，支持移动端
-- 📝 博客文章管理
-- 🔗 社交媒体链接
-- 💜 渐变色主题设计
+- 🖼️ 梵高与莫奈的艺术风格介绍
+- 🎨 两位大师的作品特点对比
+- 💜 优雅的渐变紫色主题设计
+- 📱 响应式布局，支持各种设备
 
-## 🚀 本地开发
+## 📝 自定义说明
 
-### 环境要求
+页面中使用 `[]` 标记的地方需要替换为你的实际信息：
 
-- Ruby (>= 2.5.0)
-- Bundler
-- Jekyll
+- `[头像图片链接]` - 你的头像图片URL
+- `[个人简介/职业]` - 你的个人介绍
+- `[GitHub链接]` - 你的GitHub主页链接
+- `[其他链接1/2]` - 其他社交或联系方式
+- `[联系方式1]`、`[网站/博客]` - 对应的文字说明
+- `[星月夜作品图]`、`[睡莲作品图]` - 可以替换为实际的作品图片
+- `[...]` 中的描述性文字可以根据需要修改
 
-### 安装步骤
+## 🚀 部署
 
-1. 克隆仓库
-```bash
-git clone https://github.com/Sekiro-x/Sekiro-x.github.io.git
-cd Sekiro-x.github.io
-```
-
-2. 安装依赖
-```bash
-bundle install
-```
-
-3. 启动本地服务器
-```bash
-bundle exec jekyll serve
-```
-
-4. 在浏览器中访问 `http://localhost:4000`
-
-## 📁 项目结构
-
-```
-.
-├── _config.yml          # Jekyll 配置文件
-├── _layouts/            # 页面布局模板
-│   └── post.html        # 博客文章布局
-├── _posts/              # 博客文章目录
-│   └── 2026-06-13-test.md
-├── assets/              # 静态资源
-│   └── images/          # 图片资源
-├── css/                 # 样式文件
-│   └── style.css
-├── index.html           # 主页
-└── README.md            # 项目说明
-```
-
-## 🎨 自定义
-
-### 修改头像
-
-将你的头像图片放置在 `assets/images/avatar.jpg`，或者修改 `index.html` 中的头像链接。
-
-### 添加社交链接
-
-在 `index.html` 的 `.social-links` 部分添加新的社交链接。
-
-### 发布新文章
-
-在 `_posts/` 目录下创建新的 Markdown 文件，文件名格式为 `YYYY-MM-DD-title.md`。
-
-## 📄 License
-
-MIT License
+直接将文件推送到GitHub仓库，启用GitHub Pages即可访问。
 
 ---
 

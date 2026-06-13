@@ -3,17 +3,380 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sekiro's Blog</title>
-    <link rel="stylesheet" href="{{ '/css/style.css' | relative_url }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Sekiro - 印象派艺术探索</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        /* 顶部导航 */
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.2rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: #333;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1.2rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* 主容器 */
+        .main-container {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            gap: 2.5rem;
+        }
+
+        /* 左侧边栏 */
+        .sidebar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+        }
+
+        .profile-section {
+            text-align: center;
+        }
+
+        .avatar-container {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .avatar {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid transparent;
+            background: linear-gradient(white, white), 
+                        linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background-origin: border-box;
+            background-clip: content-box, border-box;
+            box-shadow: 0 8px 30px rgba(102, 126, 234, 0.4);
+            transition: transform 0.3s ease;
+        }
+
+        .avatar:hover {
+            transform: scale(1.05) rotate(5deg);
+        }
+
+        .user-id {
+            font-size: 2.2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        .user-title {
+            color: #666;
+            font-size: 1rem;
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+
+        .social-links {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 1.5rem;
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+            border: 2px solid transparent;
+        }
+
+        .social-link:hover {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            transform: translateX(8px);
+            border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .social-icon {
+            font-size: 1.5rem;
+            width: 30px;
+            text-align: center;
+        }
+
+        /* 右侧内容区 */
+        .content {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .section-header {
+            margin-bottom: 2.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 3px solid;
+            border-image: linear-gradient(to right, #667eea, #764ba2) 1;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-subtitle {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        /* 艺术家卡片 */
+        .artist-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .artist-card {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+            border-radius: 15px;
+            padding: 2rem;
+            transition: all 0.4s ease;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .artist-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .artist-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.3);
+            border-color: rgba(102, 126, 234, 0.3);
+        }
+
+        .artist-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .artist-name {
+            font-size: 1.8rem;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .artist-period {
+            color: #667eea;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .artist-description {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .artwork-preview {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .van-gogh-preview {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        }
+
+        .monet-preview {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+        }
+
+        /* 风格特点 */
+        .style-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .feature-item {
+            padding: 1.5rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.2);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-title {
+            font-size: 1.2rem;
+            color: #333;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .feature-desc {
+            color: #666;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        /* 页脚 */
+        .footer {
+            text-align: center;
+            padding: 2.5rem;
+            color: white;
+            margin-top: 3rem;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .footer p {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 968px) {
+            .main-container {
+                grid-template-columns: 1fr;
+                padding: 0 1rem;
+            }
+
+            .sidebar {
+                position: static;
+            }
+
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .artist-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .user-id {
+                font-size: 1.8rem;
+            }
+
+            .avatar {
+                width: 150px;
+                height: 150px;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- 顶部导航栏 -->
     <nav class="navbar">
         <div class="nav-container">
-            <a href="{{ '/' | relative_url }}" class="nav-item active">主页</a>
-            <a href="{{ '/memo' | relative_url }}" class="nav-item">备忘录</a>
-            <a href="{{ '/comments' | relative_url }}" class="nav-item">评论</a>
+            <div class="logo">🎨 Art Gallery</div>
+            <div class="nav-links">
+                <a href="#" class="nav-link active">主页</a>
+                <a href="#" class="nav-link">备忘录</a>
+                <a href="#" class="nav-link">评论</a>
+            </div>
         </div>
     </nav>
 
@@ -23,13 +386,22 @@
         <aside class="sidebar">
             <div class="profile-section">
                 <div class="avatar-container">
-                    <img src="{{ '/assets/images/avatar.jpg' | relative_url }}" alt="Sekiro's Avatar" class="avatar" onerror="this.src='https://ui-avatars.com/api/?name=Sekiro&size=200'">
+                    <img src="[头像图片链接]" alt="Sekiro's Avatar" class="avatar">
                 </div>
                 <h1 class="user-id">Sekiro</h1>
+                <p class="user-title">[个人简介/职业]</p>
                 <div class="social-links">
-                    <a href="https://github.com/Sekiro-x" target="_blank" class="social-link" title="GitHub">
-                        <i class="fab fa-github"></i>
+                    <a href="[GitHub链接]" target="_blank" class="social-link">
+                        <span class="social-icon">🔗</span>
                         <span>GitHub</span>
+                    </a>
+                    <a href="[其他链接1]" target="_blank" class="social-link">
+                        <span class="social-icon">📧</span>
+                        <span>[联系方式1]</span>
+                    </a>
+                    <a href="[其他链接2]" target="_blank" class="social-link">
+                        <span class="social-icon">🌐</span>
+                        <span>[网站/博客]</span>
                     </a>
                 </div>
             </div>
@@ -37,39 +409,91 @@
 
         <!-- 右侧内容区 -->
         <main class="content">
-            <section class="blog-section">
-                <h2 class="section-title">最新博客</h2>
-                
-                {% if site.posts.size > 0 %}
-                    <div class="posts-list">
-                        {% for post in site.posts limit:5 %}
-                            <article class="post-card">
-                                <h3 class="post-title">
-                                    <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-                                </h3>
-                                <div class="post-meta">
-                                    <span class="post-date">
-                                        <i class="far fa-calendar-alt"></i>
-                                        {{ post.date | date: "%Y-%m-%d" }}
-                                    </span>
-                                </div>
-                                <p class="post-excerpt">{{ post.excerpt | strip_html | truncate: 150 }}</p>
-                                <a href="{{ post.url | relative_url }}" class="read-more">阅读更多 →</a>
-                            </article>
-                        {% endfor %}
+            <div class="section-header">
+                <h2 class="section-title">印象派艺术大师</h2>
+                <p class="section-subtitle">探索梵高与莫奈的艺术世界</p>
+            </div>
+
+            <!-- 艺术家介绍 -->
+            <div class="artist-grid">
+                <!-- 梵高卡片 -->
+                <div class="artist-card">
+                    <div class="artwork-preview van-gogh-preview">
+                        [星月夜作品图]
                     </div>
-                {% else %}
-                    <div class="no-posts">
-                        <p>暂无博客文章</p>
+                    <h3 class="artist-name">文森特·梵高</h3>
+                    <p class="artist-period">Vincent van Gogh (1853-1890)</p>
+                    <p class="artist-description">
+                        [荷兰后印象派画家，以其大胆的色彩运用和富有表现力的笔触闻名。
+                        代表作包括《星月夜》、《向日葵》系列等。他的作品充满情感张力，
+                        对现代艺术产生了深远影响。]
+                    </p>
+                </div>
+
+                <!-- 莫奈卡片 -->
+                <div class="artist-card">
+                    <div class="artwork-preview monet-preview">
+                        [睡莲作品图]
                     </div>
-                {% endif %}
-            </section>
+                    <h3 class="artist-name">克劳德·莫奈</h3>
+                    <p class="artist-period">Claude Monet (1840-1926)</p>
+                    <p class="artist-description">
+                        [法国印象派创始人之一，擅长捕捉光线和色彩的瞬间变化。
+                        代表作包括《睡莲》系列、《日出·印象》等。
+                        他对光影的研究开创了绘画的新纪元。]
+                    </p>
+                </div>
+            </div>
+
+            <!-- 艺术风格特点 -->
+            <div class="section-header" style="margin-top: 3rem;">
+                <h2 class="section-title">艺术风格对比</h2>
+                <p class="section-subtitle">两位大师的独特艺术语言</p>
+            </div>
+
+            <div class="style-features">
+                <div class="feature-item">
+                    <div class="feature-icon">🎨</div>
+                    <h4 class="feature-title">色彩运用</h4>
+                    <p class="feature-desc">
+                        [梵高：使用强烈对比的鲜艳色彩，表达内心情感]<br><br>
+                        [莫奈：追求自然光线的微妙变化，色调柔和细腻]
+                    </p>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon">✏️</div>
+                    <h4 class="feature-title">笔触技法</h4>
+                    <p class="feature-desc">
+                        [梵高：粗犷有力的旋涡状笔触，充满动感]<br><br>
+                        [莫奈：轻盈快速的点彩笔触，营造朦胧感]
+                    </p>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon">🌟</div>
+                    <h4 class="feature-title">创作主题</h4>
+                    <p class="feature-desc">
+                        [梵高：肖像、静物、风景，强调主观情感]<br><br>
+                        [莫奈：自然风光、水面倒影，注重光影效果]
+                    </p>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon">💭</div>
+                    <h4 class="feature-title">艺术理念</h4>
+                    <p class="feature-desc">
+                        [梵高：通过绘画表达内心的痛苦与激情]<br><br>
+                        [莫奈：捕捉瞬间的视觉印象和自然之美]
+                    </p>
+                </div>
+            </div>
         </main>
     </div>
 
     <!-- 页脚 -->
     <footer class="footer">
-        <p>&copy; {{ 'now' | date: "%Y" }} Sekiro. All rights reserved.</p>
+        <p>&copy; 2026 Sekiro. All rights reserved. | [个人网站标语]</p>
     </footer>
 </body>
 </html>

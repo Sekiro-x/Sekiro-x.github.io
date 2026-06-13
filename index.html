@@ -625,12 +625,17 @@
                 setPlayingUI(true);
             }).catch(function () {});
         } else {
-            document.addEventListener('click', function firstClick() {
+            var firstInteract = function () {
                 music.play().then(function () {
                     setPlayingUI(true);
                     localStorage.setItem('musicPlaying', 'true');
                 }).catch(function () {});
-                document.removeEventListener('click', firstClick);
+                ['mousemove', 'scroll', 'touchstart', 'keydown', 'click'].forEach(function (evt) {
+                    document.removeEventListener(evt, firstInteract);
+                });
+            };
+            ['mousemove', 'scroll', 'touchstart', 'keydown', 'click'].forEach(function (evt) {
+                document.addEventListener(evt, firstInteract, { once: false });
             });
         }
 

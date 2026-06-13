@@ -597,7 +597,7 @@
 
     <!-- 页脚 -->
     <footer class="footer">
-        <p>&copy; 2026 Sekiro. All rights reserved. | [个人网站标语]</p>
+        <p>&copy; 2026 Sekiro. All rights reserved. | BGM: Claude Debussy - Clair de Lune</p>
     </footer>
 
     <script>
@@ -616,15 +616,25 @@
             }
         }
 
-        // 页面首次任意点击触发自动播放（仅一次）
-        document.addEventListener('click', function firstClick() {
+        // 跨页面音乐持久化
+        var wasPlaying = localStorage.getItem('musicPlaying') === 'true';
+        var savedTime = parseFloat(localStorage.getItem('musicTime') || '0');
+
+        if (wasPlaying) {
+            music.currentTime = savedTime;
             music.play().then(function () {
                 setPlayingUI(true);
             }).catch(function () {});
-            document.removeEventListener('click', firstClick);
-        });
+        } else {
+            document.addEventListener('click', function firstClick() {
+                music.play().then(function () {
+                    setPlayingUI(true);
+                    localStorage.setItem('musicPlaying', 'true');
+                }).catch(function () {});
+                document.removeEventListener('click', firstClick);
+            });
+        }
 
-        // 点击头像切换播放/暂停
         avatar.addEventListener('click', function (e) {
             e.stopPropagation();
             if (music.paused) {
@@ -635,8 +645,9 @@
             }
         });
 
-        music.addEventListener('pause', function () { setPlayingUI(false); });
-        music.addEventListener('play', function () { setPlayingUI(true); });
+        music.addEventListener('play', function () { localStorage.setItem('musicPlaying', 'true'); setPlayingUI(true); });
+        music.addEventListener('pause', function () { localStorage.setItem('musicPlaying', 'false'); setPlayingUI(false); });
+        music.addEventListener('timeupdate', function () { localStorage.setItem('musicTime', music.currentTime.toString()); });
     </script>
 </body>
 </html>

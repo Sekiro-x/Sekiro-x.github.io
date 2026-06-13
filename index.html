@@ -91,29 +91,6 @@
             text-align: center;
         }
 
-        .avatar-container {
-            position: relative;
-            margin-bottom: 2rem;
-        }
-
-        .avatar {
-            width: 180px;
-            height: 180px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 5px solid transparent;
-            background: linear-gradient(white, white), 
-                        linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            background-origin: border-box;
-            background-clip: content-box, border-box;
-            box-shadow: 0 8px 30px rgba(102, 126, 234, 0.4);
-            transition: transform 0.3s ease;
-        }
-
-        .avatar:hover {
-            transform: scale(1.05) rotate(5deg);
-        }
-
         .user-id {
             font-size: 2.2rem;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -471,117 +448,72 @@
             }
         }
 
-        /* 月光入口遮罩 */
-        .moonlight-overlay {
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-            z-index: 9999;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            transition: opacity 0.8s ease, visibility 0.8s ease;
+        /* 头像音乐播放器 */
+        .avatar-container {
+            position: relative;
+            margin-bottom: 2rem;
         }
 
-        .moonlight-overlay.hidden {
-            opacity: 0;
-            visibility: hidden;
-            pointer-events: none;
-        }
-
-        .moon-icon {
-            font-size: 4rem;
-            margin-bottom: 1.5rem;
-            animation: float 3s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-12px); }
-        }
-
-        .moonlight-title {
-            font-size: 1.6rem;
-            color: rgba(255, 255, 255, 0.7);
-            font-style: italic;
-            margin-bottom: 0.5rem;
-            letter-spacing: 2px;
-        }
-
-        .moonlight-composer {
-            font-size: 0.95rem;
-            color: rgba(255, 255, 255, 0.4);
-            margin-bottom: 2.5rem;
-        }
-
-        .enter-btn {
-            padding: 0.8rem 2.5rem;
-            font-size: 1rem;
-            color: white;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border: none;
-            border-radius: 30px;
-            cursor: pointer;
-            letter-spacing: 3px;
-            transition: all 0.3s ease;
-            font-family: inherit;
-        }
-
-        .enter-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
-        }
-
-        /* 音乐控制按钮 */
-        .music-toggle {
-            position: fixed;
-            bottom: 1.5rem;
-            right: 1.5rem;
-            width: 48px;
-            height: 48px;
+        .avatar {
+            width: 180px;
+            height: 180px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border: none;
+            object-fit: cover;
+            border: 5px solid transparent;
+            background: linear-gradient(white, white),
+                        linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background-origin: border-box;
+            background-clip: content-box, border-box;
+            box-shadow: 0 8px 30px rgba(102, 126, 234, 0.4);
+            transition: transform 0.3s ease;
             cursor: pointer;
+        }
+
+        .avatar:hover {
+            transform: scale(1.05);
+        }
+
+        .avatar.playing {
+            animation: spin 8s linear infinite;
+        }
+
+        .avatar.playing:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .music-indicator {
+            position: absolute;
+            bottom: 8px;
+            right: 8px;
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-            transition: all 0.3s ease;
-            z-index: 999;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.5);
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
-        .music-toggle:hover {
-            transform: scale(1.1);
-            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        .music-indicator.visible {
+            opacity: 1;
         }
 
-        .music-toggle svg {
-            width: 22px;
-            height: 22px;
+        .music-indicator svg {
+            width: 16px;
+            height: 16px;
             fill: white;
-        }
-
-        .music-toggle.playing {
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4); }
-            50% { box-shadow: 0 4px 25px rgba(102, 126, 234, 0.7); }
         }
     </style>
 </head>
 <body>
-    <!-- 月光入口 -->
-    <div class="moonlight-overlay" id="moonlightOverlay">
-        <div class="moon-icon">🌙</div>
-        <div class="moonlight-title">Clair de Lune</div>
-        <div class="moonlight-composer">Claude Debussy</div>
-        <button class="enter-btn" id="enterBtn">进 入</button>
-    </div>
-
     <!-- 背景音乐 -->
     <audio id="bgMusic" loop preload="auto">
         <source src="assets/clair-de-lune.mp3" type="audio/mpeg">
@@ -604,7 +536,10 @@
         <aside class="sidebar">
             <div class="profile-section">
                 <div class="avatar-container">
-                    <img src="assets/Houtarou.jpg" alt="Sekiro's Avatar" class="avatar">
+                    <img src="assets/Houtarou.jpg" alt="Sekiro's Avatar" class="avatar" id="avatar" title="点击播放/暂停音乐">
+                    <div class="music-indicator" id="musicIndicator">
+                        <svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+                    </div>
                 </div>
                 <h1 class="user-id">Sekiro</h1>
                 <p class="user-title">推荐算法工程师</p>
@@ -660,12 +595,6 @@
         </main>
     </div>
 
-    <!-- 音乐控制按钮 -->
-    <button class="music-toggle" id="musicToggle" title="播放/暂停">
-        <svg id="iconPlay" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-        <svg id="iconPause" viewBox="0 0 24 24" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
-    </button>
-
     <!-- 页脚 -->
     <footer class="footer">
         <p>&copy; 2026 Sekiro. All rights reserved. | [个人网站标语]</p>
@@ -673,31 +602,31 @@
 
     <script>
         var music = document.getElementById('bgMusic');
-        var btn = document.getElementById('musicToggle');
-        var iconPlay = document.getElementById('iconPlay');
-        var iconPause = document.getElementById('iconPause');
+        var avatar = document.getElementById('avatar');
+        var indicator = document.getElementById('musicIndicator');
+        music.volume = 0.4;
 
         function setPlayingUI(isPlaying) {
             if (isPlaying) {
-                iconPlay.style.display = 'none';
-                iconPause.style.display = 'block';
-                btn.classList.add('playing');
+                avatar.classList.add('playing');
+                indicator.classList.add('visible');
             } else {
-                iconPlay.style.display = 'block';
-                iconPause.style.display = 'none';
-                btn.classList.remove('playing');
+                avatar.classList.remove('playing');
+                indicator.classList.remove('visible');
             }
         }
 
-        document.getElementById('enterBtn').addEventListener('click', function () {
-            music.volume = 0.4;
+        // 页面首次任意点击触发自动播放（仅一次）
+        document.addEventListener('click', function firstClick() {
             music.play().then(function () {
                 setPlayingUI(true);
             }).catch(function () {});
-            document.getElementById('moonlightOverlay').classList.add('hidden');
+            document.removeEventListener('click', firstClick);
         });
 
-        btn.addEventListener('click', function () {
+        // 点击头像切换播放/暂停
+        avatar.addEventListener('click', function (e) {
+            e.stopPropagation();
             if (music.paused) {
                 music.play().then(function () { setPlayingUI(true); });
             } else {

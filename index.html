@@ -470,16 +470,91 @@
                 height: 150px;
             }
         }
+
+        /* 月光入口遮罩 */
+        .moonlight-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+
+        .moonlight-overlay.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .moon-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+
+        .moonlight-title {
+            font-size: 1.6rem;
+            color: rgba(255, 255, 255, 0.7);
+            font-style: italic;
+            margin-bottom: 0.5rem;
+            letter-spacing: 2px;
+        }
+
+        .moonlight-composer {
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.4);
+            margin-bottom: 2.5rem;
+        }
+
+        .enter-btn {
+            padding: 0.8rem 2.5rem;
+            font-size: 1rem;
+            color: white;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            letter-spacing: 3px;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .enter-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
+        }
     </style>
 </head>
 <body>
+    <!-- 月光入口 -->
+    <div class="moonlight-overlay" id="moonlightOverlay">
+        <div class="moon-icon">🌙</div>
+        <div class="moonlight-title">Clair de Lune</div>
+        <div class="moonlight-composer">Claude Debussy</div>
+        <button class="enter-btn" id="enterBtn">进 入</button>
+    </div>
+
+    <!-- 背景音乐 -->
+    <audio id="bgMusic" loop preload="auto">
+        <source src="clair-de-lune.mp3" type="audio/mpeg">
+    </audio>
+
     <!-- 顶部导航栏 -->
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-links">
                 <a href="#" class="nav-link active">主页</a>
                 <a href="sketchbook/" class="nav-link">技术</a>
-                <a href="gallery/" class="nav-link">评论</a>
+                <a href="notes/" class="nav-link">笔记</a>
             </div>
         </div>
     </nav>
@@ -511,7 +586,7 @@
         <main class="content">
             <div class="section-header">
                 <h2 class="section-title">最近更新</h2>
-                <p class="section-subtitle">最新的技术笔记与评论</p>
+                <p class="section-subtitle">最新的技术文章与笔记</p>
             </div>
 
             <div class="columns-wrapper">
@@ -529,14 +604,14 @@
                     </div>
                 </div>
 
-                <!-- 第二栏：评论 -->
+                <!-- 第二栏：笔记 -->
                 <div class="column-section">
                     <div class="column-header">
-                        <span class="column-title">评论</span>
-                        <a href="gallery/" class="column-more">查看全部 →</a>
+                        <span class="column-title">笔记</span>
+                        <a href="notes/" class="column-more">查看全部 →</a>
                     </div>
                     <div class="article-list">
-                        <a href="gallery/202606/生化危机1.html" class="article-card">
+                        <a href="notes/202606/生化危机1.html" class="article-card">
                             <div class="article-card-title">生化危机1</div>
                             <div class="article-card-date">2026-06-13</div>
                         </a>
@@ -550,5 +625,14 @@
     <footer class="footer">
         <p>&copy; 2026 Sekiro. All rights reserved. | [个人网站标语]</p>
     </footer>
+
+    <script>
+        document.getElementById('enterBtn').addEventListener('click', function () {
+            var music = document.getElementById('bgMusic');
+            music.volume = 0.4;
+            music.play().catch(function () {});
+            document.getElementById('moonlightOverlay').classList.add('hidden');
+        });
+    </script>
 </body>
 </html>

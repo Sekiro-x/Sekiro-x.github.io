@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>评论 - Sekiro's Blog</title>
+    <link rel="stylesheet" href="{{ '/css/style.css' | relative_url }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .comments-section {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .comment-placeholder {
+            text-align: center;
+            padding: 3rem;
+            color: #999;
+        }
+        .comment-placeholder i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #ddd;
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="{{ '/' | relative_url }}" class="nav-item">主页</a>
+            <a href="{{ '/memo' | relative_url }}" class="nav-item">备忘录</a>
+            <a href="{{ '/comments' | relative_url }}" class="nav-item active">评论</a>
+        </div>
+    </nav>
+
+    <!-- 内容区域 -->
+    <div class="main-container" style="grid-template-columns: 1fr;">
+        <main class="content">
+            <h2 class="section-title">评论区</h2>
+            
+            <div class="comments-section">
+                <div class="comment-placeholder">
+                    <i class="far fa-comments"></i>
+                    <p>评论功能即将上线...</p>
+                    <p style="font-size: 0.9rem; margin-top: 1rem;">你可以在这里集成 Disqus、Giscus 或其他评论系统</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <p>&copy; {{ 'now' | date: "%Y" }} Sekiro. All rights reserved.</p>
+    </footer>
+</body>
+</html>

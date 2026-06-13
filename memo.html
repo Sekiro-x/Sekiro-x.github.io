@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>备忘录 - Sekiro's Blog</title>
+    <link rel="stylesheet" href="{{ '/css/style.css' | relative_url }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .memo-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .memo-item {
+            background-color: #fff9e6;
+            border-left: 4px solid #ffc107;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 5px;
+        }
+        .memo-date {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="{{ '/' | relative_url }}" class="nav-item">主页</a>
+            <a href="{{ '/memo' | relative_url }}" class="nav-item active">备忘录</a>
+            <a href="{{ '/comments' | relative_url }}" class="nav-item">评论</a>
+        </div>
+    </nav>
+
+    <!-- 内容区域 -->
+    <div class="main-container" style="grid-template-columns: 1fr;">
+        <main class="content">
+            <h2 class="section-title">备忘录</h2>
+            
+            <div class="memo-content">
+                <div class="memo-item">
+                    <div class="memo-date">
+                        <i class="far fa-calendar-alt"></i> 2026-06-13
+                    </div>
+                    <p>这是一个备忘录示例。你可以在这里记录重要的事项、待办清单或学习笔记。</p>
+                </div>
+
+                <div class="memo-item">
+                    <div class="memo-date">
+                        <i class="far fa-calendar-alt"></i> 2026-06-13
+                    </div>
+                    <p>💡 提示：你可以通过编辑 memo.html 文件来添加更多备忘录内容。</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <p>&copy; {{ 'now' | date: "%Y" }} Sekiro. All rights reserved.</p>
+    </footer>
+</body>
+</html>
